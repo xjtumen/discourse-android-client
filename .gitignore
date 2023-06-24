@@ -1,3 +1,5 @@
+.attach_pid*
+/app/release/*
 *.iml
 .gradle
 /local.properties

@@ -43,15 +43,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun IsXjtuMenService(string: String): Boolean {
-    return try {
-        Uri.parse(string).host.toString().endsWith("xjtu.men")
-    } catch (e: Exception) {
-        e.printStackTrace();
-        false
-    }
-}
-
 class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() {
     override fun shouldInterceptRequest(
         view: WebView?,
@@ -60,7 +51,7 @@ class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() 
         return try {
             when {
                 // intercept XJTU.MEN traffic to use DNS over HTTPS
-                IsXjtuMenService(request?.url.toString()) -> WebViewNetworkHandler(request)
+                Uri.parse(request?.url.toString()).host == "xjtu.men"  -> WebViewNetworkHandler(request)
                 else -> null
             }
         } catch (e: Exception) {
@@ -70,7 +61,7 @@ class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() 
     }
 
     override fun shouldOverrideUrlLoading(webView: WebView?, url: String): Boolean {
-        if (IsXjtuMenService(url)) return false
+        if (Uri.parse(url).host == "xjtu.men") return false
         // open non XJTU.MEN links in system browser
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         mainActivity.startActivity(intent)
