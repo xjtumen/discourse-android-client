@@ -187,7 +187,7 @@ class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() 
         view: WebView?,
         request: WebResourceRequest?
     ): WebResourceResponse? {
-        return null
+//        return null
         return try {
             when {
                 // intercept XJTU.MEN traffic to use DNS over HTTPS
