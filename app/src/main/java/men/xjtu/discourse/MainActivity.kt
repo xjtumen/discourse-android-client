@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         }
-        webView.loadUrl("https://xjtu.live")
+        webView.loadUrl("https://xjtu.men")
     }
 
     @Throws(IOException::class)
@@ -190,8 +190,8 @@ class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() 
         return null
         return try {
             when {
-                // intercept xjtu.live traffic to use DNS over HTTPS
-                Uri.parse(request?.url.toString()).host == "xjtu.live" -> WebViewNetworkHandler(
+                // intercept xjtu.men traffic to use DNS over HTTPS
+                Uri.parse(request?.url.toString()).host == "xjtu.men" -> WebViewNetworkHandler(
                     request
                 )
 
@@ -204,9 +204,9 @@ class MyWebViewClient(private val mainActivity: MainActivity) : WebViewClient() 
     }
 
     override fun shouldOverrideUrlLoading(webView: WebView?, url: String): Boolean {
-        if (Uri.parse(url).host == "xjtu.live") return false
+        if (Uri.parse(url).host == "xjtu.men") return false
 //        if (Uri.parse(url).host == "2048.xjtu.men") return false
-        // open non xjtu.live links in system browser
+        // open non xjtu.men links in system browser
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         mainActivity.startActivity(intent)
         return true
